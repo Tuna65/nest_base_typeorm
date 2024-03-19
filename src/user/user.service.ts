@@ -8,10 +8,30 @@ import { Repository } from 'typeorm';
 export class UserService {
   constructor(
     @Inject('USER_REPOSITORY')
-    private photoRepository: Repository<User>,
+    private userRepository: Repository<User>,
   ) {}
 
-  async create(body: any) {
-    return { data: 'hello' };
+  async create(user: User) {
+    await this.userRepository.create({
+      ...user,
+    });
+    return this.userRepository.save(user);
+  }
+
+  async findAll(): Promise<User[]> {
+    return this.userRepository.find();
+  }
+
+  async findOne(id: number): Promise<User> {
+    return this.userRepository.findOne({ where: { id } });
+  }
+
+  async update(id: number, user: Partial<User>): Promise<User> {
+    await this.userRepository.update(id, user);
+    return this.userRepository.findOne({ where: { id } });
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.userRepository.delete(id);
   }
 }
