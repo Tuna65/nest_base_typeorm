@@ -12,7 +12,7 @@ services:
   #     POSTGRES_DB: pgdev
 
   server:
-    container_name: server-base
+    container_name: server-base-dev
     build: .
     image: server-base:dev
     ports:
