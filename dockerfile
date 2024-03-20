@@ -10,6 +10,6 @@ COPY . .
 
 COPY ./src src
 
-RUN npm run build:dev
+RUN npm run build:main
 
-CMD [ "npm", "run", "start:dev" ]
+CMD [ "npm", "run", "start:main" ]
