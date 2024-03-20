@@ -5,13 +5,11 @@ import {
   Get,
   Param,
   Post,
-  Put,
-  RawBodyRequest,
-  Req,
+  Put
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { User } from './user.entity';
 import { UserDTO } from './dto/user.dto';
+import { User } from './user.entity';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {

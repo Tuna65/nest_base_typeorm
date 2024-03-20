@@ -1,6 +1,7 @@
-import { BaseEntity } from 'src/base/base.entity';
+import { BaseEntity } from 'src/base/entity.base';
 import { EStatus } from 'src/enums/EStatus';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Product } from 'src/product/product.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -17,4 +18,7 @@ export class User extends BaseEntity {
 
   @Column()
   status?: EStatus;
+
+  @OneToMany((type) => Product, (product) => product.user)
+  products?: Product[];
 }
