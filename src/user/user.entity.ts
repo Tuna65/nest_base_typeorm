@@ -1,7 +1,8 @@
+import { BaseEntity } from 'src/base/base.entity';
+import { EStatus } from 'src/enums/EStatus';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-
 @Entity()
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
@@ -9,14 +10,11 @@ export class User {
   name: string;
 
   @Column('text')
-  description: string;
+  email: string;
+
+  @Column('text')
+  password: string;
 
   @Column()
-  filename: string;
-
-  @Column('int')
-  views: number;
-
-  @Column()
-  isPublished: boolean;
+  status?: EStatus;
 }
