@@ -10,7 +10,7 @@ services:
   #     POSTGRES_USER: admin
   #     POSTGRES_PASSWORD: Abc123456
   #     POSTGRES_DB: pgdev
-  #
+  
 
   server:
     container_name: server-base-main
