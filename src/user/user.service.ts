@@ -1,8 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { User } from './user.entity';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { EStatus } from 'src/enums/EStatus';
 import { Repository } from 'typeorm';
-// import { PrismaService } from 'src/prisma/prisma.service';
-// import { UserDTO } from './dto/userDTO';
+import { UserDTO } from './dto/user.dto';
+import { User } from '../entity/user.entity';
 
 @Injectable({})
 export class UserService {
@@ -11,18 +11,28 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  async create(user: User) {
-    await this.userRepository.create({
-      ...user,
+  async create(userDTO: UserDTO) {
+    const user = await this.userRepository.findOne({
+      where: { email: userDTO.email },
     });
-    return this.userRepository.save(user);
+
+    if (user) throw new NotFoundException('Email đã tồn tại!');
+
+    const newUser: User = { ...userDTO };
+    newUser.status = EStatus.ACTIVE;
+
+    await this.userRepository.create({
+      ...newUser,
+    });
+
+    return this.userRepository.save(newUser);
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userRepository.find();
+  async findAll(user: User): Promise<User[]> {
+    return this.userRepository.find({ where: { name: user.name ?? '' } });
   }
 
-  async findOne(id: number): Promise<User> {
+  async detail(id: number): Promise<User> {
     return this.userRepository.findOne({ where: { id } });
   }
 
