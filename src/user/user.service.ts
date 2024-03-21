@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { EStatus } from 'src/enums/EStatus';
 import { Repository } from 'typeorm';
 import { UserDTO } from './dto/user.dto';
-import { User } from './user.entity';
+import { User } from '../entity/user.entity';
 
 @Injectable({})
 export class UserService {

@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { EStatus } from 'src/enums/EStatus';
-import { Product } from './product.entity';
+import { Product } from '../entity/product.entity';
 
 @Injectable({})
 export class ProductService {

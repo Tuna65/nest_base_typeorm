@@ -1,6 +1,6 @@
 import { BaseEntity } from 'src/base/entity.base';
 import { EStatus } from 'src/enums/EStatus';
-import { Product } from 'src/product/product.entity';
+import { Product } from 'src/entity/product.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class User extends BaseEntity {

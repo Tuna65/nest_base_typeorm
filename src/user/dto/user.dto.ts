@@ -1,4 +1,4 @@
-import { Product } from 'src/product/product.entity';
+import { Product } from 'src/entity/product.entity';
 
 export type UserDTO = {
   name: string;
