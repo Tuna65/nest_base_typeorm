@@ -12,9 +12,9 @@ services:
   #     POSTGRES_DB: pgdev
 
   server:
-    container_name: server-base-dev
+    container_name: server-base-main
     build: .
-    image: server-base:dev
+    image: server-base:main
     ports:
       - '8091:3000'
     restart: always
