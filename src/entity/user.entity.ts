@@ -1,12 +1,8 @@
 import { BaseEntity } from 'src/base/entity.base';
-import { EStatus } from 'src/enums/EStatus';
 import { Product } from 'src/entity/product.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 @Entity()
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id?: number;
-
   @Column({ length: 500 })
   name: string;
 
@@ -15,9 +11,6 @@ export class User extends BaseEntity {
 
   @Column('text')
   password: string;
-
-  @Column()
-  status?: EStatus;
 
   @OneToMany((type) => Product, (product) => product.user)
   products?: Product[];
