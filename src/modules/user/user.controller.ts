@@ -9,22 +9,22 @@ import {
   Query,
 } from '@nestjs/common';
 import { QueryUser } from 'src/types/user.type';
-// import { Authorization } from 'src/decorators/auth.decorator';
 import { User } from 'src/entity/user.entity';
 import { UserService } from './user.service';
+import { Authorization } from 'src/decorators/auth.decorator';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
-  // @Authorization(true)
+  @Authorization(true)
   create(@Body() body: any) {
     return this.userService.create(body);
   }
 
   @Get()
-  // @Authorization(true)
+  @Authorization(true)
   getall(@Query() query: QueryUser) {
     const newQuery: QueryUser = {
       ...query,
@@ -35,31 +35,31 @@ export class UserController {
   }
 
   @Get('/get-by-username')
-  // @Authorization(true)
+  @Authorization(true)
   detailByUserName(@Query() query: { username: string }) {
     return this.userService.getByUserName(query.username);
   }
 
   @Get(':id')
-  // @Authorization(true)
+  @Authorization(true)
   detail(@Param('id') id: number) {
     return this.userService.detail(id);
   }
 
   @Delete('/delete-multiple')
-  // @Authorization(true)
+  @Authorization(true)
   deleteMultiple(@Body() body: { ids: number[] }) {
     return this.userService.deleteMultiple(body.ids);
   }
 
   @Delete(':id')
-  // @Authorization(true)
+  @Authorization(true)
   delete(@Param('id') id: number) {
     return this.userService.delete(id);
   }
 
   @Put()
-  // @Authorization(true)
+  @Authorization(true)
   update(@Body() user: User) {
     return this.userService.update(user.id, user);
   }

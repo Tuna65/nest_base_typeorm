@@ -24,5 +24,5 @@ export class BaseEntity {
   status: EStatus;
 
   @PrimaryGeneratedColumn()
-  id?: number;
+  id?: string;
 }

@@ -1,4 +1,10 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+import { mapToDto } from 'src/configs/dto.config';
+import {
+  ConflictException,
+  NotFoundException,
+} from 'src/configs/exception.config';
 import { User } from 'src/entity/user.entity';
 import { EStatus } from 'src/enums/EStatus';
 import { Pagination } from 'src/types';
@@ -8,9 +14,10 @@ import {
   addFullNameFilter,
   addKeywordFilter,
   mapMetaData,
-  removeAccents,
 } from 'src/utils/func';
 import { Repository, SelectQueryBuilder } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
+import { UserDTO } from './dto/user.dto';
 
 @Injectable({})
 export class UserService {
@@ -19,8 +26,15 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  async create(body: any) {
-    return await this.userRepository.save({ ...body, status: EStatus.ACTIVE });
+  async create(dto: any) {
+    const entity = await this.userRepository.findOne({
+      where: { username: dto.username },
+    });
+    if (entity) return ConflictException('Tài khoản đã tồn tại');
+
+    dto.id = uuidv4().toString();
+    dto.password = await bcrypt.hash(dto.password, 12);
+    return mapToDto(UserDTO, await this.userRepository.save(dto));
   }
 
   private buildWhereConditions(qb: any, alias: string, query: QueryUser): void {
@@ -114,7 +128,7 @@ export class UserService {
     return await this.userRepository.save({});
   }
 
-  async delete(id: number): Promise<any> {
+  async delete(id: string): Promise<any> {
     const user = await this.userRepository.findOneBy({ id });
     await this.userRepository.save({ ...user, status: EStatus.DELETED });
     return { mess: 'Delete success!' };
@@ -130,5 +144,19 @@ export class UserService {
       entities.map((e) => ({ ...e, status: EStatus.DELETED })),
     );
     return { mess: 'Delete success!' };
+  }
+
+  async validateUser(username: string, password: string) {
+    const user = await this.userRepository.findOne({
+      where: { username },
+    });
+
+    if (!user) return NotFoundException('Tài khoản, mật khẩu không chính xác!');
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid)
+      return ConflictException('Tài khoản, mật khẩu không chính xác!');
+
+    return mapToDto(UserDTO, user);
   }
 }
