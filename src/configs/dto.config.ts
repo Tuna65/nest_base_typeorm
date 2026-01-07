@@ -1,7 +1,7 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
-import { IPaginationMeta, Pagination } from 'nestjs-typeorm-paginate';
 import { BaseDTO } from 'src/base/dto.base';
 import { BaseEntity } from 'src/base/entity.base';
+import { Pagination } from 'src/types';
 
 export const mapToDto = <T>(cls: ClassConstructor<T>, entity: any) => {
   return plainToInstance(cls, entity, {
@@ -17,7 +17,7 @@ export function mapToEntity<T extends BaseEntity, D extends BaseDTO>(
 }
 
 export const MapPaginate = <T extends BaseEntity, D extends BaseDTO>(
-  data: Pagination<T, IPaginationMeta>,
+  data: Pagination<T>,
   cls: ClassConstructor<D>,
 ) => {
   return {

@@ -128,7 +128,7 @@ export class UserService {
     return await this.userRepository.save({});
   }
 
-  async delete(id: string): Promise<any> {
+  async delete(id: number): Promise<any> {
     const user = await this.userRepository.findOneBy({ id });
     await this.userRepository.save({ ...user, status: EStatus.DELETED });
     return { mess: 'Delete success!' };

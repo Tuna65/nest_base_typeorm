@@ -3,9 +3,8 @@ import { UserModule } from './modules/client/user/user.module';
 import { AuthModule } from './modules/client/auth/auth.module';
 
 @Module({
-  imports: [UserModule, AuthModule],
+  imports: [],
   controllers: [],
   providers: [],
 })
 export class AppModule {}
-

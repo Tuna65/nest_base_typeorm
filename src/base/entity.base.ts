@@ -18,11 +18,11 @@ export class BaseEntity {
   updateAt?: Date;
 
   @Column({ nullable: true })
-  createdBy?: Date;
+  createdBy?: number;
 
   @Column({ nullable: true, default: EStatus.ACTIVE })
   status: EStatus;
 
   @PrimaryGeneratedColumn()
-  id?: string;
+  id?: number;
 }
