@@ -1,5 +1,5 @@
 {
-  "name": "sale_be",
+  "name": "ai-agent-card",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -26,7 +26,11 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/jwt": "^11.0.0",
     "@nestjs/platform-express": "^10.0.0",
+<<<<<<< HEAD
     "@nestjs/swagger": "^7.4.0",
+=======
+    "@nestjs/swagger": "^7.0.0",
+>>>>>>> 7c0b789d54b16a43b5c05fce6b902c4851747469
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "env-cmd": "^10.1.0",
