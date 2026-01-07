@@ -20,7 +20,7 @@ async function bootstrap() {
 
   SwaggerModule.setup('api/v1/docs', app, document);
 
-  await app.listen(3000);
+  await app.listen(5060);
   console.log(`Ứng dụng đang chạy tại: ${await app.getUrl()}/api/v1/docs`);
 }
 bootstrap();
