@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './modules/user/user.module';
-import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/client/user/user.module';
+import { AuthModule } from './modules/client/auth/auth.module';
 
 @Module({
   imports: [UserModule, AuthModule],
@@ -8,8 +8,4 @@ import { AuthModule } from './modules/auth/auth.module';
   providers: [],
 })
 export class AppModule {}
-// implements NestModule {
-//   configure(consumer: MiddlewareConsumer) {
-//     consumer.apply(LoggerMiddleware).forRoutes(UserController);
-//   }
-// }
+
